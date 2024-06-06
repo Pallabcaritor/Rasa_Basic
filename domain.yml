@@ -1,34 +1,149 @@
 version: "3.1"
 
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
+intents:
+  - greet
+  - deny
+  - request_details
+  - goodbye
+  - affirm
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - thanksgiving
+
+forms:
+  details_form:
+    required_slots:
+      - applicant_name
+      - contact_number
+      - father_name
+      - permanent_address
+      - current_address
+      - connection_type
+      - connection_load
+      - connection_purpose
+      - application_number
+
+slots:
+  applicant_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: applicant_name
+  contact_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: contact_number
+  father_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: father_name
+  permanent_address:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: permanent_address
+  current_address:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: current_address
+  connection_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: connection_type
+  connection_load:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: connection_load
+  connection_purpose:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: connection_purpose
+  application_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: details_form
+            requested_slot: application_number
+
+responses:
+  utter_greet:
+    - text: Welcome to RISL Interactive New Electricity Application . How Can I help You?
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+    - text: Did that help you?
+  utter_happy:
+    - text: Great, carry on!
+  utter_goodbye:
+    - text: Bye
+  utter_iamabot:
+    - text: I am a agent working for RISL.
+  utter_ask_applicant_name:
+    - text: What is your name?
+  utter_ask_contact_number:
+    - text: Please mention your 10 digit Indian mobile number.
+  utter_ask_father_name:
+    - text: What is your father's name?
+  utter_ask_permanent_address:
+    - text: Please Type Your Permanent Address.
+  utter_ask_current_address:
+    - text: Please Type Your Current Address
+  utter_ask_connection_type:
+    - text: "What type of connection you want?. \nPlease mention any one type from the below --> \n\nDomestic\nIndustrial\nCommercial"
+  utter_ask_connection_load:
+    - text: "What connection load you required? \n Please mention any one type from the below --> \n\n2KVA\n5KVA\nMORE"
+  utter_ask_connection_purpose:
+    - text: Please describe shortly the purpose of the connection.
+  utter_submit:
+    - text: Ok. Thanks!
+  utter_final:
+    - text: Please use this APPLICATION NUMBER to track the status of your application. Thank you
+  utter_details:
+    - text: "Your application for new Electricity Connection has been submitted successfully. Application Number - {application_number}\n\nSubmitted Details:\n\nApplicant Name - {applicant_name}\nContact Number - {contact_number}\nFather's Name - {father_name}\nPermanent Address - {permanent_address}\nCurrent Address - {current_address}\nConnection Type - {connection_type}\nRequested Connection Load - {connection_load}\nConnection Purpose - {connection_purpose}"
+  utter_thanksgiving:
+    - text: "You are most Welcome!, RISL is very happy to help you."
+
+actions:
+  - utter_greet
+  - utter_details
+  - utter_final
+  - utter_submit
+  - validate_details_form

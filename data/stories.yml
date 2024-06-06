@@ -1,30 +1,78 @@
 version: "3.1"
 
 stories:
+  # - story: happy path
+  #   steps:
+  #   - intent: greet
+  #   - action: utter_greet
+  #   - intent: mood_great
+  #   - action: utter_happy
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  # - story: sad path 1
+  #   steps:
+  #   - intent: greet
+  #   - action: utter_greet
+  #   - intent: mood_unhappy
+  #   - action: utter_cheer_up
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+  # - story: sad path 2
+  #   steps:
+  #   - intent: greet
+  #   - action: utter_greet
+  #   - intent: mood_unhappy
+  #   - action: utter_cheer_up
+  #   - action: utter_did_that_help
+  #   - intent: deny
+  #   - action: utter_goodbye
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - story: interactive_story_1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: request_details
+      - action: details_form
+      - active_loop: details_form
+      - slot_was_set:
+          - requested_slot: applicant_name
+      - slot_was_set:
+          - applicant_name: Joginder
+      - slot_was_set:
+          - requested_slot: contact_number
+      - slot_was_set:
+          - contact_number: "8790865678"
+      - slot_was_set:
+          - requested_slot: father_name
+      - slot_was_set:
+          - father_name: Chandrahas
+      - slot_was_set:
+          - requested_slot: permanent_address
+      - slot_was_set:
+          - permanent_address: "Jodhpur Rajasthan 342006"
+      - slot_was_set:
+          - requested_slot: current_address
+      - slot_was_set:
+          - current_address: "Jodhpur Rajasthan 342006"
+      - slot_was_set:
+          - requested_slot: connection_type
+      - slot_was_set:
+          - connection_type: Domestic
+      - slot_was_set:
+          - requested_slot: connection_load
+      - slot_was_set:
+          - connection_load: 5A
+      - slot_was_set:
+          - requested_slot: connection_purpose
+      - slot_was_set:
+          - connection_purpose: "Domestic Purpose"
+      - slot_was_set:
+          - requested_slot: application_number
+      - slot_was_set:
+          - application_number: "RJEL69800000"
+      - slot_was_set:
+          - requested_slot: null
+      - active_loop: null
+      - action: utter_submit
+      - action: utter_details
+      - action: utter_final
+      - intent: thanksgiving
+      - action: utter_thanksgiving
